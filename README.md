@@ -2,6 +2,7 @@
     I have no <b> <i>time </i> </b> and the <b> <i>will </i> </b> to learn swagger, so i wrote this.
     The aim is to have the least learning curve required to document my API with Swagger.
 </p>
+![](https://github.com/husentoding/swag-generation/blob/main/_asset/swaggen_demo.gif)
 
 ### Getting started
 - Copy `base-template` folder into your API doc repository
