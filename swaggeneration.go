@@ -12,8 +12,9 @@ import (
 )
 
 type Builder struct {
-	manager *template.Template
-	data    *data
+	manager        *template.Template
+	data           *data
+	outputFileName string
 }
 
 type data struct {
@@ -21,15 +22,16 @@ type data struct {
 	api        []map[string]interface{}
 }
 
-func Init(baseTemplatePath, dataPath string) *Builder {
+func Init(baseTemplatePath, dataPath, outputFileName string) *Builder {
 	return &Builder{
-		manager: loadBaseTemplate(baseTemplatePath),
-		data:    loadData(dataPath),
+		manager:        loadBaseTemplate(baseTemplatePath),
+		data:           loadData(dataPath, outputFileName),
+		outputFileName: outputFileName,
 	}
 }
 
-func (b *Builder) Generate(outputFileName string) {
-	outputFile, err := os.Create(outputFileName)
+func (b *Builder) Generate() {
+	outputFile, err := os.Create(b.outputFileName)
 	if err != nil {
 		panic(err)
 	}
@@ -78,7 +80,7 @@ func loadBaseTemplate(baseTemplatePath string) *template.Template {
 	return template.Must(tmp, err)
 }
 
-func loadData(dataPath string) *data {
+func loadData(dataPath, outputFileName string) *data {
 	fileList, errReadDir := os.ReadDir(dataPath)
 	if errReadDir != nil {
 		panic(errReadDir)
@@ -93,6 +95,10 @@ func loadData(dataPath string) *data {
 
 		if entry.Name() == "collection.yaml" {
 			d.collection = loadYAML(dataPath, entry)
+			continue
+		}
+
+		if entry.Name() == filepath.Base(outputFileName) {
 			continue
 		}
 
