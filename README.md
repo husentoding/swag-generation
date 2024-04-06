@@ -1,5 +1,5 @@
 <p align="center"> 
-    I have no <b> <i>time </i> </b> and the <b> <i>will </i> </b> to learn swagger, so i wrote this.
+    I have no <b> <i>time </i> </b> nor the <b> <i>will </i> </b> to learn swagger, so i wrote this.
     The aim is to have the least learning curve required to document my API with Swagger.
 </p>
 <div style="text-align: center;">
@@ -40,3 +40,7 @@ Syntax is written in golang text/template format.
 > represent the config for one API.
 
 > config documentation WIP
+
+
+### Roadmap
+- Installation and run through terminal
