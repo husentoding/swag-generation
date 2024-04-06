@@ -4,9 +4,8 @@ import (
 	swaggeneration "github.com/husentoding/swag-generation"
 )
 
+// path are configured from root swag-generation repository
 func main() {
-	
 	builder := swaggeneration.Init("./base-template/", "./example/identity-service")
-	builder.Generate("output.swagger.yaml")
-
+	builder.Generate("./example/identity-service/output.swagger.yaml")
 }

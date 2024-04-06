@@ -23,7 +23,12 @@ example:
       User-Agent: CoolApp/1.5.0 (Android)
     requestBody: |
       {
-        "pinHash": "--example pin hash --"
+        "pinHash": "--example pin hash --",
+        "randomBody": {
+          "nestedBody": {
+            "isHere": true
+          }
+        }
       }
     responseBody: |
       {

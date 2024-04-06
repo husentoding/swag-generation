@@ -135,6 +135,15 @@ paths:
                 pinHash:
                   type: string
                   example: --example pin hash --
+                randomBody:
+                  type: object
+                  properties:
+                    nestedBody:
+                      type: object
+                      properties:
+                        isHere:
+                          type: boolean
+                          example: "true"
                 
       responses:
 
