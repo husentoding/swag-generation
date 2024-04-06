@@ -1,0 +1,47 @@
+path: /v1/user/signup
+method: post
+subCollection: Login
+summary: api to signup
+description: api to register new account based on phone number
+
+requestHeaders:
+  Authorization:
+    type: string
+    required: true
+    description: JWT Token
+    example: Bearer ey...
+  User-Agent:
+    type: string
+    required: false
+    description: identifies client's agent made to create the request
+    example: CoolApp/1.5.0 (Android)
+
+example:
+  Phone number already used:
+    description: Sign up failed due to phone number is used
+    requestHeader:
+      Authorization: Bearer ey...
+      User-Agent: test
+    requestBody: |
+      {
+          "test": "ok"
+      }
+    responseBody: |
+      {
+          "userExist": true
+      }
+    responseCode: 400
+  Success creating new user:
+    description: User's phone number is registered, and is able to be used for login
+    requestHeader:
+      Authorization: Bearer ey...
+      User-Agent: test
+    requestBody: |
+      {
+          "test": "ok"
+      }
+    responseBody: |
+      {
+          "userExist": false
+      }
+    responseCode: 200
