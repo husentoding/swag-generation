@@ -1,0 +1,234 @@
+# base template for api collection that has same context
+# e.g identity service collection contains login api, signup api, etc...
+openapi: 3.0.3
+info:
+  title: Identity service
+  description: Identity and Access Management service
+  contact:
+    name: IAM team
+  version: 1.0.0
+
+
+tags:
+  
+- name: Login
+  description: login related apis
+    
+  externalDocs:
+    description: Confluence URL
+    url: https://some-confluence.com/for-this-endpoint
+    
+  
+- name: PIN Management
+  description: PIN management Apis
+    
+  
+
+
+paths:
+  /v1/user/login:
+    put:
+      tags:
+        - Login
+      summary: subsequent and new device login api
+      description: will requires user to do MFA
+      parameters:
+        
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: JWT Token
+          example: Bearer ey...
+        
+        - in: header
+          name: User-Agent
+          schema:
+            type: string
+          required: false
+          description: identifies client's agent made to create the request
+          example: CoolApp/1.5.0 (Android)
+        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                endDate:
+                  type: string
+                  example: "2025-05-15T15:04:05+07:00"
+                pageSize:
+                  type: number
+                  format: float
+                  example: "10.000000"
+                startDate:
+                  type: string
+                  example: "2021-03-15T15:04:05+07:00"
+                userSafeID:
+                  type: string
+                  example: db2adf42-0c89-4f2b-9fa9-63260ffa9faf
+                
+      responses:
+
+        '200':
+          description: New Device Login Case
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isSuccess:
+                    type: boolean
+                    example: "true"
+                  user:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: totoro@ghibli.jp
+                      name:
+                        type: string
+                        example: Totoro
+                  
+          headers: 
+  
+            X-RateLimit-Limit:
+              schema:
+                type: integer
+                example: 500
+              required: true
+              description: information regarding attempts left before user got rate limited
+  
+
+  /v1/pin-reset:
+    post:
+      tags:
+        - PIN Management
+      summary: reset user's PIN
+      description: will requires user to do MFA
+      parameters:
+        
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: JWT Token
+          example: Bearer ey...
+        
+        - in: header
+          name: User-Agent
+          schema:
+            type: string
+          required: false
+          description: identifies client's agent made to create the request
+          example: CoolApp/1.5.0 (Android)
+        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pinHash:
+                  type: string
+                  example: --example pin hash --
+                randomBody:
+                  type: object
+                  properties:
+                    nestedBody:
+                      type: object
+                      properties:
+                        isHere:
+                          type: boolean
+                          example: "true"
+                
+      responses:
+
+        '400':
+          description: PIN is already used previously
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: number
+                    format: float
+                    example: "1000.000000"
+                  reason:
+                    type: string
+                    example: New PIN is match with last 3 PIN, please create new one
+                  status:
+                    type: string
+                    example: failed
+                  
+          
+  
+
+  /v1/user/signup:
+    post:
+      tags:
+        - Login
+      summary: api to signup
+      description: api to register new account based on phone number
+      parameters:
+        
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: JWT Token
+          example: Bearer ey...
+        
+        - in: header
+          name: User-Agent
+          schema:
+            type: string
+          required: false
+          description: identifies client's agent made to create the request
+          example: CoolApp/1.5.0 (Android)
+        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                test:
+                  type: string
+                  example: ok
+                
+      responses:
+
+        '400':
+          description: Phone number already used
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userExist:
+                    type: boolean
+                    example: "true"
+                  
+          
+  
+
+        '200':
+          description: Success creating new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userExist:
+                    type: boolean
+                    example: "false"
+                  
+          
+  
+
