@@ -2,7 +2,10 @@
     I have no <b> <i>time </i> </b> and the <b> <i>will </i> </b> to learn swagger, so i wrote this.
     The aim is to have the least learning curve required to document my API with Swagger.
 </p>
-![](https://github.com/husentoding/swag-generation/blob/main/_asset/swaggen_demo.gif)
+<div style="text-align: center;">
+    <img src="_asset/swaggen_demo.gif"  alt="gif demo"/>
+</div>
+
 
 ### Getting started
 - Copy `base-template` folder into your API doc repository
