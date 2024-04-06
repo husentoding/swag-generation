@@ -1,0 +1,46 @@
+endpoint: https://gateway.com
+path: /v1/user/login
+method: put
+subCollection: Login
+summary: subsequent and new device login api
+description: will requires user to do MFA
+#responseHeaders: Won't do, it is not supported by OAS in API declaration, but it can be declared in Examples
+requestHeaders:
+  Authorization:
+    type: string
+    required: true
+    description: JWT Token
+    example: Bearer ey...
+  User-Agent:
+    type: string
+    required: false
+    description: identifies client's agent made to create the request
+    example: CoolApp/1.5.0 (Android)
+example:
+  New Device Login Case:
+    description: login success case
+    requestHeader:
+        Authorization: Authorization ey...
+        User-Agent: CoolApp/1.5.0 (Android)
+    requestBody: |
+        {
+          "userSafeID" : "db2adf42-0c89-4f2b-9fa9-63260ffa9faf",
+          "pageSize" : 10,
+          "startDate": "2021-03-15T15:04:05+07:00",
+          "endDate": "2025-05-15T15:04:05+07:00"
+        }
+    responseBody: |
+      {
+        "isSuccess": true,
+        "user": {
+          "name": "Totoro",
+          "email": "totoro@ghibli.jp"
+        }
+      }
+    responseHeader:
+      X-RateLimit-Limit:
+        type: integer
+        required: true
+        description: information regarding attempts left before user got rate limited
+        example: 500
+    responseCode: 200

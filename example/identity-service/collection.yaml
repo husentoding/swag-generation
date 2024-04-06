@@ -1,0 +1,15 @@
+title: Identity service
+description: Identity and Access Management service
+owner: IAM team
+version: 1.0.0
+endpoint: https://some-api-domain.net
+
+## WIP
+subCollections:
+  Login:
+      description: login related apis
+      externalDoc:
+        description: Confluence URL
+        url: https://some-confluence.com/for-this-endpoint
+  PIN Management:
+      description: PIN management Apis

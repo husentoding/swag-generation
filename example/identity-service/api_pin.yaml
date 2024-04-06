@@ -1,0 +1,34 @@
+endpoint: https://gateway.com
+path: /v1/pin-reset
+method: post
+subCollection: PIN Management
+summary: reset user's PIN
+description: will requires user to do MFA
+requestHeaders:
+  Authorization:
+    type: string
+    required: true
+    description: JWT Token
+    example: Bearer ey...
+  User-Agent:
+    type: string
+    required: false
+    description: identifies client's agent made to create the request
+    example: CoolApp/1.5.0 (Android)
+example:
+  PIN is already used previously:
+    description: user already use this PIN as his last 3 PIN previously, ask user to create a new one
+    requestHeader:
+      Authorization: Authorization ey...
+      User-Agent: CoolApp/1.5.0 (Android)
+    requestBody: |
+      {
+        "pinHash": "--example pin hash --"
+      }
+    responseBody: |
+      {
+        "status": "failed",
+        "code": 1000,
+        "reason": "New PIN is match with last 3 PIN, please create new one"
+      }
+    responseCode: 400
