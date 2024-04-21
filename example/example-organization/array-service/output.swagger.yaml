@@ -1,0 +1,110 @@
+# base template for api collection that has same context
+# e.g identity service collection contains login api, signup api, etc...
+openapi: 3.0.3
+info:
+  title: <no value>
+  description: <no value>
+  contact:
+    name: <no value>
+  version: <no value>
+
+
+
+paths:
+  /resource/v1/fetch:
+    post:
+      tags:
+        - Postlogin
+      summary: endpoint to get resource
+      description: generic implementation of data insertion and update, can be used for data management such as transaction, wallet etc
+      parameters:
+        
+        - in: header
+          name: Authorization
+          schema:
+            type: string
+          required: true
+          description: loginIdToken of the user after login
+          example: Bearer << idToken here >>
+        
+        - in: header
+          name: User-Agent
+          schema:
+            type: string
+          required: true
+          description: identifies client's agent made to create the request
+          example: FinanceApp/1.0.0 (Samsung-xxxx, Android 1.0)
+        
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pagination:
+                  type: object
+                  properties:
+                    pageNum:
+                      type: number
+                      format: float
+                      example: "1.000000"
+                    pageSize:
+                      type: number
+                      format: float
+                      example: "10.000000"
+                resourcePath:
+                  type: string
+                  example: transaction/{transactionID}
+                
+      responses:
+
+        '200':
+          description: GetTransactionDetail
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      transaction:
+                        type: object
+                        properties:
+                          id:
+                            type: number
+                            format: float
+                            example: "1.000000"
+                  responseCode:
+                    type: string
+                    example: OK
+                  
+          
+  
+
+        '200':
+          description: GetTransactionList
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      transaction:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: number
+                              format: float
+                              example: "1.000000"
+                  responseCode:
+                    type: string
+                    example: OK
+                  
+          
+  
+

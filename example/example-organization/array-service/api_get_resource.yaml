@@ -1,0 +1,62 @@
+path: /resource/v1/fetch
+method: post
+subCollection: Postlogin
+summary: endpoint to get resource
+description: generic implementation of data insertion and update, can be used for data management such as transaction, wallet etc
+requestHeaders:
+  User-Agent:
+    type: string
+    required: true
+    description: identifies client's agent made to create the request
+    example: FinanceApp/1.0.0 (Samsung-xxxx, Android 1.0)
+  Authorization:
+    type: string
+    required: true
+    description: loginIdToken of the user after login
+    example: Bearer << idToken here >>
+example:
+  GetTransactionList:
+    description: get user transaction
+    requestHeader:
+      Authorization: Bearer << idToken here >>
+      User-Agent: FinanceApp/1.0.0 (Samsung-xxxx, Android 1.0)
+    requestBody: |
+      {
+        "resourcePath": "transaction",
+        "pagination": {
+          "pageNum": 1,
+          "pageSize": 10
+        }
+      }
+    responseBody: |
+      {
+        "responseCode": "OK",
+        "data": {
+          "transaction": [
+            {
+              "id": 1
+            }
+          ]
+        }
+      }
+    responseCode: 200
+  GetTransactionDetail:
+    description: get user transaction detail
+    requestHeader:
+      Authorization: Bearer << idToken here >>
+      User-Agent: FinanceApp/1.0.0 (Samsung-xxxx, Android 1.0)
+    requestBody: |
+      {
+        "resourcePath": "transaction/{transactionID}"
+      }
+    responseBody: |
+      {
+        "responseCode": "OK",
+        "data": {
+          "transaction": {
+            "id": 1
+          }
+        }
+      }
+    responseCode: 200
+
